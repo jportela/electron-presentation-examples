@@ -1,0 +1,14 @@
+{
+  "name": "start",
+  "version": "1.0.0",
+  "description": "Quickstart with Electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "João Portela",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^3.0.10"
+  }
+}
