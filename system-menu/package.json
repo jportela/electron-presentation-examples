@@ -1,0 +1,14 @@
+{
+  "name": "system-menu",
+  "version": "1.0.0",
+  "description": "System Menus Example",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "João Portela",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^3.0.10"
+  }
+}
