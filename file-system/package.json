@@ -1,0 +1,14 @@
+{
+  "name": "file-system",
+  "version": "1.0.0",
+  "description": "File System Access example",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "João Portela",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^3.0.10"
+  }
+}

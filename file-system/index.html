@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Start</title>
+    <style>
+      body {
+        color: white;
+        background: #7d82b8;
+      }
+      .hidden { display: none }
+      #content {
+        width: 50%;
+      }
+      #spinner, #content {
+        margin: 2em auto;
+      }
+      svg, select, img {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>File System</h1>
+    <select id="file-list"></select>
+    <img id="spinner" src="./spinner.svg" class="hidden"></img>
+    <img id="content"></img>
+    <script>
+      require('./renderer.js')
+    </script>
+  </body>
+</html>
