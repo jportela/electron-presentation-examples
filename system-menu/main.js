@@ -1,12 +1,21 @@
 const { app, BrowserWindow, ipcMain, Menu } = require('electron');
 
-const { getTemplate } = require('./menu');
-const { openDirectory } = require('./actions');
+const { extendTemplateWithFileMenu } = require('../common/menu');
+const { openDirectory } = require('../common/actions');
 
-const menuTemplate = getTemplate();
+let mainWindow;
+
+const menuTemplate = extendTemplateWithFileMenu({
+  label: 'File',
+  submenu: [{
+    label: 'Open',
+    accelerator: 'CmdOrCtrl+O',
+    click: () => openDirectory(mainWindow),
+  }]
+});
 
 app.on('ready', () => {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     backgroundColor: '#7d82b8',
@@ -17,5 +26,9 @@ app.on('ready', () => {
 });
 
 ipcMain.on('change-directory', () => {
-  openDirectory();
+  if (!mainWindow) {
+    return;
+  }
+
+  openDirectory(mainWindow);
 });

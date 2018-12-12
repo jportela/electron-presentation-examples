@@ -1,6 +1,6 @@
 const { extname, join } = require('path');
 
-const { readFile, list } = require('./fs-utils');
+const { readFile, list } = require('../common/fs-utils');
 
 const BASE_PATH = join(__dirname, '..', 'images');
 
@@ -32,8 +32,6 @@ $fileList.onchange = async () => {
 
 async function populateImageList(dirPath) {
   const files = await list(dirPath);
-
-  $fileList.chi
 
   files
     .filter(file => extname(file) === '.jpg')

@@ -1,7 +1,9 @@
-const { BrowserWindow, dialog, shell } = require('electron')
+const { dialog, shell } = require('electron')
 
-function openDirectory() {
-  const [window] = BrowserWindow.getAllWindows();
+function openDirectory(window) {
+  if (!window) {
+    return;
+  }
   dialog.showOpenDialog(window, {
     properties: ['openDirectory'],
   }, (filePaths) => {
@@ -18,4 +20,4 @@ function learnMore() {
 module.exports = {
   learnMore,
   openDirectory,
-}
+};

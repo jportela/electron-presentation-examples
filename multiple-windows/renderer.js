@@ -12,4 +12,4 @@ ipcRenderer.on('open-directory', (e, dirPath) => {
 
 $openButton.onclick = () => {
   ipcRenderer.send('change-directory');
-}
+};
