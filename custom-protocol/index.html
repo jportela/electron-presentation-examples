@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Custom Protocol</title>
+    <link href="../common/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>Custom Protocol</h1>
+    <div id="image-list-container"></div>
+    <button id="open-button">Open...</button>
+    <img id="spinner" src="../common/spinner.svg" class="hidden"></img>
+    <div id="content-container"></div>
+    <script>
+      require('./renderer.js')
+    </script>
+    <script src="../common/stats.min.js"></script>
+    <script>
+      const stats=new Stats();stats.dom.style.left=null;stats.dom.style.right='0';document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)})
+    </script>
+  </body>
+</html>

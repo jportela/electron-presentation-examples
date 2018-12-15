@@ -1,36 +1,47 @@
 
 const { extname, join } = require('path');
 
-const { readFile, list } = require('./fs-utils');
+const { list, readFile } = require('./fs-utils');
 
-async function populateImageList(dirPath, $content, $fileListContainer, $spinner) {
-  $fileListContainer.innerHTML = '';
+function selectImage(file) {
+  const extension = extname(file);
+  return extension === '.jpg' || extension === '.jpeg';
+}
 
+function createOption(text) {
+  const $option = document.createElement('option');
+  $option.textContent = text;
+  return $option;
+}
+
+async function populateImageList(dirPath) {
+  // obtain the file list from a directory
   const files = await list(dirPath);
 
-  const $fileList = document.createElement('select');
+  const $imageList = document.createElement('select');
 
-  const firstOption = document.createElement('option');
-  firstOption.textContent = dirPath;
-  firstOption.disabled = true;
-  firstOption.selected = true;
+  // first option, to indicate what directory is loaded
+  const $firstOption = createOption(dirPath);
+  $firstOption.disabled = true;
+  $firstOption.selected = true;
 
-  $fileList.append(firstOption);
+  $imageList.append($firstOption);
 
   files
-    .filter(file => extname(file) === '.jpg')
-    .forEach(file => {
-      const $element = document.createElement('option');
-      $element.textContent = file;
-      $fileList.append($element);
-    });
+    .filter(selectImage) // only select JPEG files
+    .map(createOption)
+    .forEach(($option) => $imageList.append($option));
+  
+  return $imageList;
+}
 
-  $fileList.onchange = async (e) => {
+function setupChangeListener($imageList, dirPath, $content, $spinner) {
+  $imageList.onchange = async (e) => {
     if (e.currentTarget.disabled) {
       return;
     }
 
-    const fileName = $fileList.value;
+    const fileName = $imageList.value;
   
     if (!fileName) {
       return;
@@ -46,14 +57,14 @@ async function populateImageList(dirPath, $content, $fileListContainer, $spinner
       $content.setAttribute('src', `data:img/jpeg;base64,${content}`);
     } catch (e) {
       console.log('Error while reading from disk', e);
+      // remote.dialog.showErrorBox('Error', 'Error while reading from disk');
     } finally {
       $spinner.classList.add('hidden');
     }
   }
-
-  $fileListContainer.append($fileList);
 }
 
 module.exports = {
   populateImageList,
+  setupChangeListener,
 };

@@ -1,45 +1,25 @@
-const { extname, join } = require('path');
+const { resolve } = require('path');
 
-const { readFile, list } = require('../common/fs-utils');
+// helper utilities to setup the Select element
+const { populateImageList, setupChangeListener } = require('../common/ui');
 
-const BASE_PATH = join(__dirname, '..', 'images');
+const BASE_PATH = resolve(__dirname, '..', 'images');
 
+// DOM Elements on index.html
+const $imageListContainer = document.getElementById('image-list-container'); 
 const $content = document.getElementById('content');
-const $fileList = document.getElementById('file-list'); 
 const $spinner = document.getElementById('spinner');
 
-$fileList.onchange = async () => {
-  const fileName = $fileList.value;
+// async/await syntax
+(async () => {
+  const $imageList = await populateImageList(BASE_PATH);
+  setupChangeListener($imageList, BASE_PATH, $content, $spinner);
+  $imageListContainer.appendChild($imageList);
+})();
 
-  if (!fileName) {
-    return;
-  }
-
-  try {
-    $spinner.classList.remove('hidden');
-    $content.setAttribute('src', '');
-
-    const content = await readFile(join(BASE_PATH, fileName), {
-      encoding: 'base64',
-    });
-    $content.setAttribute('src', `data:img/jpeg;base64,${content}`);
-  } catch (e) {
-    console.log('Error while reading from disk', e);
-  } finally {
-    $spinner.classList.add('hidden');
-  }
-}
-
-async function populateImageList(dirPath) {
-  const files = await list(dirPath);
-
-  files
-    .filter(file => extname(file) === '.jpg')
-    .forEach(file => {
-      const $element = document.createElement('option');
-      $element.textContent = file;
-      $fileList.append($element);
-    });
-}
-
-populateImageList(BASE_PATH);
+// same as:
+// populateImageList(BASE_PATH)
+//   .then(($imageList) => {
+//     setupChangeListener($imageList, BASE_PATH, $content, $spinner);
+//     $imageListContainer.appendChild($imageList);
+//   });
