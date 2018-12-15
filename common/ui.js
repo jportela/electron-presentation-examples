@@ -1,3 +1,5 @@
+// electron-browser
+// UI utilites
 
 const { extname, join } = require('path');
 

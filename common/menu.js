@@ -1,8 +1,11 @@
+// electron-main
+// Menu templates
+
 const { app } = require('electron');
 const { learnMore } = require('./actions');
 
-function getBaseTemplate() {
-  return [{
+function getEditMenu() {
+  return {
     label: 'Edit',
     submenu: [
       {role: 'undo'},
@@ -15,8 +18,11 @@ function getBaseTemplate() {
       {role: 'delete'},
       {role: 'selectall'}
     ]
-  },
-  {
+  };
+}
+
+function getViewMenu() {
+  return {
     label: 'View',
     submenu: [
       {role: 'reload'},
@@ -29,15 +35,21 @@ function getBaseTemplate() {
       {type: 'separator'},
       {role: 'togglefullscreen'}
     ]
-  },
-  {
+  };
+}
+
+function getWindowMenu() {
+  return {
     role: 'window',
     submenu: [
       {role: 'minimize'},
       {role: 'close'}
     ]
-  },
-  {
+  };
+}
+
+function getHelpMenu() {
+  return {
     role: 'help',
     submenu: [
       {
@@ -45,14 +57,20 @@ function getBaseTemplate() {
         click: learnMore,
       }
     ]
-  }];
+  };
 }
 
-function operatingSystemDecorator(template) {
-  if (process.platform !== 'darwin') {
-    return;
-  }
-  template.unshift({
+function getBaseTemplate() {
+  return [
+    getEditMenu(),
+    getViewMenu(),
+    getWindowMenu(),
+    getHelpMenu(),
+  ];
+}
+
+function getAppMenu() {
+  return {
     label: app.getName(),
     submenu: [
       {role: 'about'},
@@ -65,7 +83,14 @@ function operatingSystemDecorator(template) {
       {type: 'separator'},
       {role: 'quit'}
     ]
-  })
+  };
+}
+
+function operatingSystemDecorator(template) {
+  if (process.platform !== 'darwin') {
+    return;
+  }
+  template.unshift(getAppMenu())
 
   // Edit menu
   template[2].submenu.push(

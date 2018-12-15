@@ -1,3 +1,6 @@
+// electron-main
+// Utilities for Menus
+
 const { dialog, shell } = require('electron')
 
 function openDirectory(window) {
