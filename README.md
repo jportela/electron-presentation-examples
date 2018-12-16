@@ -10,7 +10,7 @@ First example, just a minimal quickstart to show how can you get started with El
 
 An example of how Node APIs can be accessed on a Browser Window
 
-## Multiple Windows
+## System Menu
 
 Explores how can we define a Menu for our application, as well as the relationship between
 the Electron Main and Renderer processes, and how to communicate with them via IPC.
