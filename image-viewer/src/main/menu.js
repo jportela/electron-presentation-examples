@@ -1,8 +1,24 @@
-// electron-main
 // Menu templates
 
 const { app } = require('electron');
-const { learnMore } = require('./actions');
+const { learnMore, openDirectory } = require('./actions');
+const { createNewWindow } = require('./windows');
+
+function getFileMenu() {
+  return {
+    label: 'File',
+    submenu: [{
+      label: 'New',
+      accelerator: 'CmdOrCtrl+N',
+      click: () => createNewWindow(),
+    },
+    {
+      label: 'Open',
+      accelerator: 'CmdOrCtrl+O',
+      click: (menuItem, win) => openDirectory(win),
+    }]
+  };
+}
 
 function getEditMenu() {
   return {
@@ -62,6 +78,7 @@ function getHelpMenu() {
 
 function getBaseTemplate() {
   return [
+    getFileMenu(),
     getEditMenu(),
     getViewMenu(),
     getWindowMenu(),
@@ -121,13 +138,6 @@ function getTemplate() {
   return operatingSystemDecorator(template);
 }
 
-function extendTemplateWithFileMenu(fileMenu) {
-  const template = getBaseTemplate();
-  template.unshift(fileMenu);
-  return operatingSystemDecorator(template);
-}
-
 module.exports = {
   getTemplate,
-  extendTemplateWithFileMenu,
 };
