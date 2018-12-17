@@ -6,16 +6,13 @@ This is a work in progress, support materials for a talk.
 
 First example, just a minimal quickstart to show how can you get started with Electron
 
-## File System
+## Image Viewer
 
-An example of how Node APIs can be accessed on a Browser Window
+This simple application displays images from a directory. It showcases several Electron APIs.
 
-## System Menu
+Electron APIs: `app`, `BrowserWindow`, `Menu`, `dialog`, `shell`, `protocol`, `ipcRenderer`, `ipcMain`
+NodeJS: `fs`, `path`, `util`,
 
-Explores how can we define a Menu for our application, as well as the relationship between
-the Electron Main and Renderer processes, and how to communicate with them via IPC.
+## Stats.js
 
-## Custom Protocol
-
-As a result of profiling, we switch to using a Custom Protocol to load images via a Stream,
-and use the Image.decode API to load the image in a micro-task, in order to optimize the FPS delivered.
+stats.js is an open-source utility, helpful for profiling: https://github.com/mrdoob/stats.js/
