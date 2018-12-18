@@ -1,8 +1,10 @@
 // UI utilites
-
+const fs = require('fs');
+const { promisify } = require('util');
 const { extname, join } = require('path');
 
-const { list, readFile } = require('../common/fs-utils');
+const readFile = promisify(fs.readFile);
+const list = promisify(fs.readdir);
 
 // selects files with extension .jpg or .jpeg
 function selectImage(file) {
@@ -79,7 +81,6 @@ async function renderImage(filePath) {
     $content.id = 'content';
   } catch (e) {
     console.log('Error while reading from disk', e);
-    // remote.dialog.showErrorBox('Error', 'Error while reading from disk');
     return null;
   }
   return $content;

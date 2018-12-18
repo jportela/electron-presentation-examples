@@ -1,8 +1,7 @@
 // Menu templates
 
 const { app } = require('electron');
-const { learnMore, openDirectory } = require('./actions');
-const { createNewWindow } = require('./windows');
+const { createNewWindow, learnMore, openDirectory } = require('./actions');
 
 function getFileMenu() {
   return {
@@ -15,7 +14,12 @@ function getFileMenu() {
     {
       label: 'Open',
       accelerator: 'CmdOrCtrl+O',
-      click: (menuItem, win) => openDirectory(win),
+      click: (menuItem, win) => {
+        if (!win) {
+          return;
+        }
+        openDirectory(win.webContents);
+      },
     }]
   };
 }
@@ -107,7 +111,9 @@ function operatingSystemDecorator(template) {
   if (process.platform !== 'darwin') {
     return;
   }
-  template.unshift(getAppMenu())
+
+  // add the App menu to the top
+  template.unshift(getAppMenu());
 
   // Edit menu
   template[2].submenu.push(
