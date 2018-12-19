@@ -1,4 +1,4 @@
-const { app, ipcMain, Menu, BrowserWindow } = require('electron');
+const { app, ipcMain, Menu } = require('electron');
 
 const { getTemplate } = require('./menu');
 const { createNewWindow, openDirectory } = require('./actions');

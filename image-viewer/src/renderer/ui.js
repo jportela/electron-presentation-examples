@@ -4,7 +4,7 @@ const { promisify } = require('util');
 const { extname, join } = require('path');
 
 const readFile = promisify(fs.readFile);
-const list = promisify(fs.readdir);
+const readdir = promisify(fs.readdir);
 
 // selects files with extension .jpg or .jpeg
 function selectImage(file) {
@@ -22,7 +22,7 @@ function createOption(text) {
 // creates the <select> element, populated with images from a specific path
 async function populateImageList(dirPath) {
   // obtain the file list from a directory
-  const files = await list(dirPath);
+  const files = await readdir(dirPath);
 
   const $imageList = document.createElement('select');
 

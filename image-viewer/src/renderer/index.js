@@ -11,7 +11,9 @@ $openButton.onclick = () => {
 };
 
 ipcRenderer.on('open-directory', async (e, dirPath) => {
+  // cleans the select element
   $imageListContainer.innerHTML = '';
+  // builds the select element
   const $imageList = await populateImageList(dirPath);
   setupChangeListener($imageList, dirPath, $imageContainer, $spinner);
   $imageListContainer.appendChild($imageList);
