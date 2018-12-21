@@ -1,6 +1,12 @@
 # Desktop Applications with Electron
 
-This is a work in progress, support materials for a talk.
+These are the examples presented at Viana Tech Meetups: https://www.meetup.com/VianaTechMeetups/events/254324177/
+
+Electron is the technology used to build popular cross-platform desktop applications such as Atom, Slack, Visual Studio Code and Skype. However it suffers from a bad reputation with the community: memory and performance issues, non-native look and feel. 
+
+This presentation aims to demystify some of this bad reputation. What is Electron, when to use it, some code samples to get you started and how can we make high performance applications with it.
+
+Speaking Deck: https://speakerdeck.com/jportela/desktop-applications-with-electron
 
 ## Start
 
